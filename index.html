@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just For You 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Fredoka One', cursive;
+    height:100vh;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align: center;
+    width:380px;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+h1{
+    color:#ff4d6d;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+/* --- GIF ADJUSTMENT STARTS HERE ---*/
+
+.first-gif {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius:15px;
+    margin:15px 0;
+    display: block;
+}
+
+/* Second GIF ka Size ( after click on yes) */
+
+.second-gif {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius:15px;
+    margin:15px 0;
+    display: block;
+}
+
+
+.buttons{
+    margin-top:25px;
+    height:160px;
+    position:relative;
+}
+
+/* COMMON BUTTON */
+button{
+    padding:12px 26px;
+    font-size:16px;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:600;
+    white-space:nowrap;
+    width:fit-content;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* YES BUTTON */
+#yesBtn{
+    background:#ff4d6d;
+    color:white;
+    position:absolute;
+    left:20px;
+    transform:scale(1);
+    transition:transform .15s linear;
+}
+
+/* NO BUTTON */
+#noBtn{
+    background:#e0e0e0;
+    color:#333;
+    position:absolute;
+    right:20px;
+    z-index: 999;
+}
+
+.hidden{display:none;}
+
+.message{
+    font-size:20px;
+    color:#ff4d6d;
+    margin-top:20px;
+    font-weight:700;
+}
+
+/* HEARTS */
+.heart{
+    position:fixed;
+    top:-10px;
+    animation:fall 4s linear forwards;
+    pointer-events:none;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+/* --- Customize Your Hearts Here --- */
+.big-heart {
+    position: fixed;
+    display: none; /* Shuru mein hide rahega */
+    z-index: 1;
+    pointer-events: none; /* Taaki buttons click karne mein dikkat na ho */ 
+    font-size: 200px; /* Desktop Size */
+    filter: drop-shadow(0 0 20px #ff4d6d);
+    animation: heartbeat 1s ease-in-out infinite; /* Ghumne wali speed */
+    }
+    /* --- Desktop Position --- */
+    #heartLeft {
+        left: 70%;
+        top: 33%;
+        bottom: 50%;
+        transform: translateY(-50%);
+    }
+    #heartRight {
+        right: 70%;
+        top: 33%;
+        bottom: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* --- Mobile Settings (Auto-Fix) --- */
+    @media (max-width: 768px) {
+        .big-heart {
+            font-size: 80px;
+            top: 20%;
+        }
+        #heartLeft {
+            left: 5%;
+            transform: none;
+        }
+        #heartRight {
+            right: 5%;
+            transform: none;
+        }
+    }
+    
+/* Spinning animation */
+@keyframes heartbeat {
+    0%, 40%, 100% { transform: translateY(-50%) scale(1); } 
+    25% { transform: translateY(-50%) scale(1.1);}
+    60% { transform: translateY(-50%) scale(1.3);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- 🔥 H1 BOLD QUESTION -->
+    <h1 id="question"> Kya tum meri Valentine banogi? 💖</h1>
+
+    <!-- Question Page GIF -->
+    <img id="gif"
+     src=https://media2.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dDN5dWNoZG1ubTk2b2Vuc2FhMDB5cXg1NWd6Y21xNjZicHBnbDdvNCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/200.webp>
+
+    <div class="buttons" id="btnBox">
+        <button id="yesBtn">Haan Ji! 🥰</button>
+        <button id="noBtn">Nahi 🙈</button>
+    </div>
+
+    <!-- YES PAGE MESSAGE -->
+    <div class="message hidden" id="msg">
+        "Yayyy!! Best decision ever! 💕<br>
+        Ab roz tumhein satane aur <br>
+        be-inteha pyaar karne ka license <br>
+        mil gaya mujhe! 😘"
+    </div>
+</div>
+    <audio id="bgMusic" src="https://pagalfree.com/musics/128-Tum%20Se%20Hi%20-%20Jab%20We%20Met%20128%20Kbps.mp3"></audio>
+
+    <div id="heartLeft" class="big-heart">💖</div>
+    <div id="heartRight" class="big-heart">💖</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const gif = document.getElementById("gif");
+const msg = document.getElementById("msg");
+const btnBox = document.getElementById("btnBox");
+const question = document.getElementById("question");
+const music = document.getElementById("bgMusic");
+
+/* NO TEXTS */
+const noTexts = [
+"Socha bhi kaise? 😤",
+ "Ek baar phir socho... 🥺",
+ "Itne zaalim mat bano! 🦁",
+ "Galat button kyu daba rhi ho? 🤔",
+ "Maan jao na, please! 🥹",
+ "Dil todne ka iraada hai? 💔",
+ "Main rone lagunga... 🥺",
+ "Achha! Itna nakhra? 🙄",
+ "Pakka? Last chance hai! 🙈",
+ "Meri cuteness ka toh socho! 🐱",
+ "No bolna mana hai! 🚫",
+ "Aise mat karo yaar... 🥀",
+ "Ek baar 'Haan' bol ke toh dekho! ✨",
+ "Zulm... Oye hoye itna zulm! 😭",
+ "Ab toh maan jao, yeh lo meri chocolate! 🍫",
+ "Mummy ko bataunga tumhari! 📢",
+ "Kitna bhagaogi? Thak gaya main! 🏃‍♂️",
+ "Dil hai ki maanta nahi... ❤️‍🩹",
+ "Ek 'Haan' ki keemat tum kya jaano... 💎",
+ "Google bhi keh raha hai, ab to haan bol do! 🌐",
+ "Arey! Mouse pakadna nahi aata kya? 😂",
+ "Chalo ab bas bhi karo, Yes daba do! ✨"
+];
+
+let textIndex = 0;
+let yesScale = 1;
+
+/* 🔧 CONTROL VALUES */
+const YES_GROW_STEP = 0.6;
+const YES_MAX_SCALE = 100;
+
+/* YES GROW FUNCTION */
+function growYes(){
+    yesScale = Math.min(yesScale + YES_GROW_STEP, YES_MAX_SCALE);
+    yesBtn.style.transform = `scale(${yesScale})`;
+}
+
+/* NO BUTTON LOGIC */
+noBtn.addEventListener("mouseenter", ()=>{
+    // change text
+    noBtn.innerText = noTexts[textIndex];
+    textIndex = (textIndex + 1) % noTexts.length;
+
+    // move anywhere on screen
+    const padding = 60;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+    noBtn.style.position = "fixed";
+    const randomX = Math.max(padding, Math.random() * maxX);
+    const randomY = Math.max(padding, Math.random() * maxY);
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top  = randomY + "px";
+
+    // grow YES
+    growYes();
+});
+
+/* YES CLICK */
+yesBtn.addEventListener("click", ()=>{
+
+    // Notification Logic (Formspree)
+    fetch("https://formspree.io/f/mgolwjoy", {
+        method: "POST",
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            result: "Yayy! Unhone Haan Bol diya hai! 😍",
+            time: new Date().toLocaleString()
+        })
+    })
+    .then(res => console.log("Success! Notification sent."))
+    .catch(err => console.log("Error sending notification."));
+    // Notification Logic (Formspree) Ends Here //
+
+    // Show Spinning Hearts
+    document.getElementById("heartLeft").style.display = "block";
+    document.getElementById("heartRight").style.display = "block";
+
+    // Music Play Logic
+    music.currentTime = 58; // Gana 10 second se shuru hoga (isko app badal sakte hain)
+    music.play();          // Gana bajna shuru ho jayega
+    
+    // UI Changes
+    btnBox.classList.add("hidden");
+    question.classList.add("hidden");
+
+    // YES PAGE GIF
+    gif.classList.remove("first-gif");
+    gif.classList.add("second-gif");
+
+    gif.src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXB1ZGI0Z29rdWhrZW00Zmt4c3Z3ZmxsYXVwendtMHlnYjh6ZTZ3OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wPnbkEcr2tXiTN0Lmq/200.webp";
+
+    msg.classList.remove("hidden");
+    startHearts();
+});
+
+/* HEART RAIN */
+function startHearts(){
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.fontSize = Math.random()*25 + 15 + "px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    },150);
+}
+</script>
+
+</body>
+
+</html>
