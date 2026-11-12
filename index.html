@@ -191,7 +191,7 @@ button{
         mil gaya mujhe! 😘"
     </div>
 </div>
-    <audio id="bgMusic" src="https://pagalfree.com/musics/128-Tum%20Se%20Hi%20-%20Jab%20We%20Met%20128%20Kbps.mp3"></audio>
+    <audio id="bgMusic" src="https://dns1.koshalworld.com/download/92802/100-Million.html"></audio>
 
     <div id="heartLeft" class="big-heart">💖</div>
     <div id="heartRight" class="big-heart">💖</div>
@@ -245,25 +245,31 @@ function growYes(){
 }
 
 /* NO BUTTON LOGIC */
-noBtn.addEventListener("mouseenter", ()=>{
-    // change text
-    noBtn.innerText = noTexts[textIndex];
-    textIndex = (textIndex + 1) % noTexts.length;
+["mouseenter", "touchstart"].forEach(eventType => {
+    noBtn.addEventListener(eventType, (e) => {
+        if (e.type === "touchstart") {
+            e.preventDefault();
+        }
 
-    // move anywhere on screen
-    const padding = 60;
-    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        // change text
+        noBtn.innerText = noTexts[textIndex];
+        textIndex = (textIndex + 1) % noTexts.length;
 
-    noBtn.style.position = "fixed";
-    const randomX = Math.max(padding, Math.random() * maxX);
-    const randomY = Math.max(padding, Math.random() * maxY);
+        // move anywhere on screen
+        const padding = 60;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top  = randomY + "px";
+        noBtn.style.position = "fixed";
+        const randomX = Math.max(padding, Math.random() * maxX);
+        const randomY = Math.max(padding, Math.random() * maxY);
 
-    // grow YES
-    growYes();
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top  = randomY + "px";
+
+        // grow YES
+        growYes();
+    });
 });
 
 /* YES CLICK */
@@ -287,7 +293,7 @@ yesBtn.addEventListener("click", ()=>{
     document.getElementById("heartRight").style.display = "block";
 
     // Music Play Logic
-    music.currentTime = 58; // Gana 10 second se shuru hoga (isko app badal sakte hain)
+    music.currentTime = 72; // Gana 10 second se shuru hoga (isko app badal sakte hain)
     music.play();          // Gana bajna shuru ho jayega
     
     // UI Changes
