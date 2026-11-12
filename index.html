@@ -191,7 +191,7 @@ button{
         mil gaya mujhe! 😘"
     </div>
 </div>
-    <audio id="bgMusic" src="https://dns1.koshalworld.com/download/92802/100-Million.html"></audio>
+    <audio id="bgMusic" src="https://cdnsongs.com/music/data/Single_Track/202103/100_Million/128/100_Million_1.mp3" preload="auto"></audio>
 
     <div id="heartLeft" class="big-heart">💖</div>
     <div id="heartRight" class="big-heart">💖</div>
@@ -293,8 +293,12 @@ yesBtn.addEventListener("click", ()=>{
     document.getElementById("heartRight").style.display = "block";
 
     // Music Play Logic
-    music.currentTime = 72; // Gana 10 second se shuru hoga (isko app badal sakte hain)
-    music.play();          // Gana bajna shuru ho jayega
+music.currentTime = 72; 
+music.play().then(() => {
+    console.log("Gaana bajna shuru ho gaya!");
+}).catch(error => {
+    console.log("Audio play nahi ho paya, browser policy ki wajah se:", error);
+});
     
     // UI Changes
     btnBox.classList.add("hidden");
